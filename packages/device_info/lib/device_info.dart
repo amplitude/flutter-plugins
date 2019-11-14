@@ -44,6 +44,7 @@ class AndroidDeviceInfo {
     this.board,
     this.bootloader,
     this.brand,
+    this.carrier,
     this.device,
     this.display,
     this.fingerprint,
@@ -73,6 +74,8 @@ class AndroidDeviceInfo {
   /// The system bootloader version number.
   final String bootloader;
 
+  /// Carrier name from Sim Card
+  final String carrier;
   /// The consumer-visible brand with which the product/hardware will be associated, if any.
   final String brand;
 
@@ -132,6 +135,7 @@ class AndroidDeviceInfo {
       board: map['board'],
       bootloader: map['bootloader'],
       brand: map['brand'],
+      carrier: map['carrier'],
       device: map['device'],
       display: map['display'],
       fingerprint: map['fingerprint'],
@@ -216,6 +220,7 @@ class AndroidBuildVersion {
 class IosDeviceInfo {
   IosDeviceInfo._({
     this.name,
+    this.carrier,
     this.systemName,
     this.systemVersion,
     this.model,
@@ -227,6 +232,8 @@ class IosDeviceInfo {
 
   /// Device name.
   final String name;
+
+  final String carrier;
 
   /// The name of the current operating system.
   final String systemName;
@@ -253,6 +260,7 @@ class IosDeviceInfo {
   static IosDeviceInfo _fromMap(Map<String, dynamic> map) {
     return IosDeviceInfo._(
       name: map['name'],
+      carrier: map['carrier'],
       systemName: map['systemName'],
       systemVersion: map['systemVersion'],
       model: map['model'],

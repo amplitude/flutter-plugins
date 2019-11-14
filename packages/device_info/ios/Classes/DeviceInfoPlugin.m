@@ -4,6 +4,8 @@
 
 #import "DeviceInfoPlugin.h"
 #import <sys/utsname.h>
+#import <CoreTelephony/CTTelephonyNetworkInfo.h>
+#import <CoreTelephony/CTCarrier.h>
 
 @implementation FLTDeviceInfoPlugin
 + (void)registerWithRegistrar:(NSObject<FlutterPluginRegistrar>*)registrar {
@@ -22,6 +24,7 @@
 
     result(@{
       @"name" : [device name],
+      @"carrier": [self carrierName],
       @"systemName" : [device systemName],
       @"systemVersion" : [device systemVersion],
       @"model" : [device model],
@@ -50,6 +53,20 @@
 #endif
 
   return isPhysicalDevice;
+}
+
+// retrieve carrierName
+- (NSString*)carrierName {
+  CTTelephonyNetworkInfo *netinfo = [[CTTelephonyNetworkInfo alloc] init];
+  CTCarrier *carrier = [netinfo subscriberCellularProvider];
+  NSLog(@"Carrier: %@", carrier);
+  NSString* name = [carrier carrierName];
+  NSLog(@"Carrier Name: %@", name);
+  if (name != nil) {
+    return name;
+  } else {
+    return @"SIM State not available";
+  }
 }
 
 @end
